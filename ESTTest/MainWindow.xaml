@@ -1,0 +1,73 @@
+﻿<Window x:Class="ESTTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ESTTest"
+        mc:Ignorable="d"
+        Title="EST Technologies Test" Height="350" Width="525">
+    <Window.DataContext>
+        <local:MainViewModel/>
+    </Window.DataContext>
+    
+    <local:BackgroundSlidePanel Background="{Binding Background}" SlideDuration="150">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="#5cb85c"/>
+                    <Setter Property="FontSize" Value="16"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}"
+                                        BorderBrush="#4cae4c" BorderThickness="1"
+                                        Padding="{TemplateBinding Padding}">
+                                    <ContentPresenter HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"></ContentPresenter>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Duration="0:0:0.2"
+                                                    Storyboard.TargetProperty="Background.Color"
+                                                    To="#449d44"/>
+                                    <ColorAnimation Duration="0:0:0.2"
+                                                    Storyboard.TargetProperty="BorderBrush.Color"
+                                                    To="#398439"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Duration="0:0:0.2"
+                                                    Storyboard.TargetProperty="Background.Color"
+                                                    To="#5cb85c"/>
+                                    <ColorAnimation Duration="0:0:0.2"
+                                                    Storyboard.TargetProperty="BorderBrush.Color"
+                                                    To="#4cae4c"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Resources>
+
+            <Label Content="{Binding Value, Mode=OneWay}"
+                   HorizontalContentAlignment="Center"
+                   FontSize="20"></Label>
+            <Button Content="Щелк"
+                    Margin="0,10,0,0" Padding="8,5,8,5"
+                    Command="{Binding NextCommand}">
+                <Button.BitmapEffect>
+                    <DropShadowBitmapEffect Color="Black" Softness="0.3"></DropShadowBitmapEffect>
+                </Button.BitmapEffect>
+            </Button>
+        </StackPanel>
+    </local:BackgroundSlidePanel>
+</Window>
